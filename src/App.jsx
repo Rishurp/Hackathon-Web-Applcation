@@ -1,6 +1,8 @@
 import Hackathon from "./Components/Hackathon";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import CreateChallenge from "./Components/CreateChallenge";
 import HackathonDetails from "./Components/HackathonDetails";
+import EditChallenge from "./Components/EditChallenge";
 
 function App() {
   return (
@@ -9,7 +11,9 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path="/" Component={Hackathon} />
+            <Route path="/create-challenge" Component={CreateChallenge} />
             <Route path="/details" Component={HackathonDetails} />
+            <Route path="/edit" Component={EditChallenge} /> 
           </Routes>
         </BrowserRouter>
       </div>

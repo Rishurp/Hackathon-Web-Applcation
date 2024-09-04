@@ -1,6 +1,8 @@
+import { useNavigate } from "react-router-dom";
 import Rocket from "../../assets/icons/PicsArt_04-14-04.42 1.svg";
 
 const Hero = () => {
+  const navigateTo = useNavigate();
   return (
     <div className="bg-[#003145] w-full h-[70%] font-sans flex items-center justify-around ">
       <div className="hero-information w-[42%]  h-[60%] text-white">
@@ -16,7 +18,10 @@ const Hero = () => {
           </p>
         </div>
         <div className=" pl-20 pt-10">
-          <button className="text-[#003145] rounded-[10px] px-3 py-1 font-semibold bg-[#FFFFFF]">
+          <button
+            onClick={() => navigateTo("/create-challenge")}
+            className="text-[#003145] rounded-[10px] px-3 py-1 font-semibold bg-[#FFFFFF]"
+          >
             Create Challenge
           </button>
         </div>

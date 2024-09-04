@@ -1,5 +1,8 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
 import React from "react";
 import check from "../../assets/icons/charm_circle-tick.png";
+import { useNavigate } from "react-router-dom";
 
 const parseDateString = (dateString) => {
   const months = {
@@ -39,6 +42,8 @@ const HackathonCard = ({ challengeData }) => {
   const startDate = parseDateString(challengeData.startDate);
   const endDate = parseDateString(challengeData.endDate);
   const now = new Date();
+
+  const navigateTo = useNavigate();
 
   if (isNaN(startDate.getTime()) || isNaN(endDate.getTime())) {
     console.error(
@@ -130,7 +135,10 @@ const HackathonCard = ({ challengeData }) => {
       </div>
 
       <div className="flex justify-center py-4">
-        <button className="flex items-center px-4 py-2 text-white rounded-lg bg-[#44924C]">
+        <button
+          onClick={() => navigateTo("/details")}
+          className="flex items-center px-4 py-2 text-white rounded-lg bg-[#44924C]"
+        >
           <img src={check} alt="" className="mr-2" />{" "}
           <span>Participate Now</span>
         </button>
