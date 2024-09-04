@@ -1,20 +1,17 @@
-import Navbar from "./Components/Navbar";
-import Hero from "./Components/Hero";
-import Stats from "./Components/Stats";
-import Participate from "./Components/Participate";
-import Filter from "./Components/Filter";
-import HackathonList from "./Components/HackathonList";
+import Hackathon from "./Components/Hackathon";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import HackathonDetails from "./Components/HackathonDetails";
 
 function App() {
   return (
     <>
       <div className="w-[100vw] h-[100vh] overflow-x-hidden">
-        <Navbar />
-        <Hero />
-        <Stats />
-        <Participate />
-        <Filter />
-        <HackathonList />
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" Component={Hackathon} />
+            <Route path="/details" Component={HackathonDetails} />
+          </Routes>
+        </BrowserRouter>
       </div>
     </>
   );
