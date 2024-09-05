@@ -1,19 +1,128 @@
-import React, { useState } from "react";
+/* eslint-disable react/prop-types */
+import React, { useEffect, useState } from "react";
 import SearchIcon from "@mui/icons-material/Search";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Chip from "@mui/material/Chip";
+import { useSelector, useDispatch } from "react-redux";
+import { addFilter, removeFilter } from "../slices/FilterSlice";
 
 const Filter = () => {
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [selectedFilters, setSelectedFilters] = useState([]);
+  const challengesData = useSelector((state) => state.challenges.value);
+  const [searchInput, setSearchInput] = useState("");
+  const dispatch = useDispatch();
+
+
+  const parseDateString = (dateString) => {
+    if (!dateString) return new Date();
+
+    const months = {
+      January: 0,
+      February: 1,
+      March: 2,
+      April: 3,
+      May: 4,
+      June: 5,
+      July: 6,
+      August: 7,
+      September: 8,
+      October: 9,
+      November: 10,
+      December: 11,
+    };
+
+    const parts = dateString.match(
+      /(\d+)\w*\s+(\w+)'(\d+)\s+(\d+:\d+\s+[APM]+)/
+    );
+    if (parts) {
+      const day = parseInt(parts[1], 10);
+      const month = months[parts[2]];
+      const year = `20${parts[3]}`;
+      const time = parts[4];
+
+      const dateStr = `${year}-${String(month + 1).padStart(2, "0")}-${String(
+        day
+      ).padStart(2, "0")} ${time}`;
+      return new Date(dateStr);
+    }
+
+    return new Date(dateString);
+  };
+
+  const performFilter = () => {
+    const now = new Date();
+    let filteredChallenges = challengesData;
+
+    if (selectedFilters.includes("Active")) {
+      filteredChallenges = filteredChallenges.filter(
+        (challenge) =>
+          parseDateString(challenge.startDate) < now &&
+          parseDateString(challenge.endDate) > now
+      );
+    } else if (selectedFilters.includes("Upcoming")) {
+      filteredChallenges = filteredChallenges.filter(
+        (challenge) =>
+          parseDateString(challenge.startDate) > now &&
+          parseDateString(challenge.endDate) > now
+      );
+    } else if (selectedFilters.includes("Past")) {
+      filteredChallenges = filteredChallenges.filter(
+        (challenge) => parseDateString(challenge.endDate) < now
+      );
+    }
+
+    if (
+      ["Easy", "Medium", "Hard"].some((level) =>
+        selectedFilters.includes(level)
+      )
+    ) {
+      filteredChallenges = filteredChallenges.filter((challenge) =>
+        selectedFilters.includes(challenge.level)
+      );
+    }
+
+    console.log(filteredChallenges);
+    dispatch(addFilter(filteredChallenges));
+  };
+
+  const handleInput = (event) => {
+    setSearchInput(event.target.value);
+  };
+
+  const performSearch = () => {
+    if (!searchInput.trim()) {
+      dispatch(addFilter(challengesData));
+      return;
+    }
+
+    let data = challengesData.filter((challenge) =>
+      challenge.name.toLowerCase().includes(searchInput.toLowerCase())
+    );
+
+    console.log(data);
+    dispatch(addFilter(data));
+  };
+
+  useEffect(() => {
+    if (selectedFilters.length > 0) {
+      performFilter();
+    }
+  }, [selectedFilters]);
+
+  useEffect(() => {
+    performSearch();
+  }, [searchInput]);
 
   const handleDeletePills = (filterToDelete) => {
-    setSelectedFilters((prev) =>
-      prev.filter((filter) => filter !== filterToDelete)
+    dispatch(removeFilter(filterToDelete));
+    const updatedSelectedFilters = selectedFilters.filter(
+      (filter) => filter !== filterToDelete
     );
+    setSelectedFilters(updatedSelectedFilters);
   };
 
   const handleFilterClick = () => {
@@ -27,9 +136,8 @@ const Filter = () => {
   const handleOptionChange = (event) => {
     const { value, checked } = event.target;
     setSelectedFilters((prev) =>
-      checked ? [...prev, value] : prev.filter((filter) => filter != value)
+      checked ? [...prev, value] : prev.filter((filter) => filter !== value)
     );
-    closeModal();
   };
 
   return (
@@ -44,6 +152,8 @@ const Filter = () => {
             className="w-full text-[#858585] outline-none px-4 py-1"
             type="text"
             placeholder="Search"
+            value={searchInput}
+            onChange={handleInput}
           />
         </div>
         <div className="mx-4 relative">
@@ -57,10 +167,9 @@ const Filter = () => {
 
           {isFilterOpen && (
             <div>
-              {/* Overlay */}
               <div
                 className="fixed inset-0 bg-[#000000] bg-opacity-[32%] z-40"
-                onClick={closeModal} // Close modal when clicking on the overlay
+                onClick={closeModal}
               ></div>
               {/* Modal */}
               <div className="absolute top-0 right-15  bg-white shadow-lg rounded-lg p-4 z-50 w-64">

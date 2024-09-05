@@ -5,6 +5,11 @@ import check from "../../assets/icons/charm_circle-tick.png";
 import { useNavigate } from "react-router-dom";
 
 const parseDateString = (dateString) => {
+  if (!dateString) {
+    console.error("Date string is undefined or null:", dateString);
+    return new Date(); // Return a default date or handle as needed
+  }
+
   const months = {
     January: 0,
     February: 1,
@@ -35,22 +40,26 @@ const parseDateString = (dateString) => {
     return new Date(dateStr);
   }
 
+  console.error("Date string does not match expected format:", dateString);
   return new Date(dateString); // Fallback if parsing fails
 };
 
 const HackathonCard = ({ challengeData }) => {
-  const startDate = parseDateString(challengeData.startDate);
-  const endDate = parseDateString(challengeData.endDate);
-  const now = new Date();
+  const {
+    name,
+    img,
+    startDate: startDateStr,
+    endDate: endDateStr,
+  } = challengeData;
 
+  // Ensure valid date strings
+  const startDate = parseDateString(startDateStr || "");
+  const endDate = parseDateString(endDateStr || "");
+  const now = new Date();
   const navigateTo = useNavigate();
 
   if (isNaN(startDate.getTime()) || isNaN(endDate.getTime())) {
-    console.error(
-      "Invalid date format:",
-      challengeData.startDate,
-      challengeData.endDate
-    );
+    console.error("Invalid date format:", startDateStr, endDateStr);
   }
 
   const hasStarted = now >= startDate;
@@ -65,32 +74,32 @@ const HackathonCard = ({ challengeData }) => {
   );
   const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
 
+  const status = isPast ? "Past" : hasStarted ? "Active" : "Upcoming";
+
   return (
     <div className="max-w-80 bg-white border rounded-2xl border-none">
       <a href="#">
-        <img className="" src={challengeData.img} alt="" />
+        <img className="" src={img} alt="" />
       </a>
 
       <div className="">
-        {isPast ? (
-          <p className="bg-[#FF3C00] rounded-md bg-opacity-[17%] text-[#666666] text-center mt-4 mx-24">
-            Past
-          </p>
-        ) : (
-          <p
-            className={`${
-              hasStarted ? " bg-[#44924C]" : "bg-[#F2C94C]"
-            } rounded-md bg-opacity-[25%] text-[#666666] text-center mt-4 mx-24`}
-          >
-            {hasStarted ? "Active" : "Upcoming"}
-          </p>
-        )}
+        <p
+          className={`${
+            status === "Past"
+              ? "bg-[#FF3C00]"
+              : status === "Active"
+              ? "bg-[#44924C]"
+              : "bg-[#F2C94C]"
+          } rounded-md bg-opacity-[25%] text-[#666666] text-center mt-4 mx-24`}
+        >
+          {status}
+        </p>
       </div>
 
       <div className="px-5 py-2">
         <a href="#">
           <h5 className="mb-2 px-4 text-lg font-semibold text-center">
-            {challengeData.name}
+            {name}
           </h5>
         </a>
       </div>
@@ -136,7 +145,7 @@ const HackathonCard = ({ challengeData }) => {
 
       <div className="flex justify-center py-4">
         <button
-          onClick={() => navigateTo("/details")}
+          onClick={() => navigateTo("/details", { state: { challengeData } })}
           className="flex items-center px-4 py-2 text-white rounded-lg bg-[#44924C]"
         >
           <img src={check} alt="" className="mr-2" />{" "}
