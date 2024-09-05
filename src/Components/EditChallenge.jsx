@@ -2,7 +2,7 @@ import { useRef, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { updateChallenge } from "../slices/ChallengesSlice";
-import Upload from "../../assets/icons/upload.svg";
+import Upload from "../../public/assets/icons/upload.svg";
 import Navbar from "./Navbar";
 
 const EditChallenge = () => {

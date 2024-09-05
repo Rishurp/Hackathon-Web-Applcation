@@ -3,8 +3,8 @@ import { useDispatch } from "react-redux";
 import { useNavigate, useLocation } from "react-router-dom";
 import { deleteChallenge } from "../slices/ChallengesSlice";
 import Navbar from "./Navbar";
-import Clock from "../../assets/icons/Clock.svg";
-import Level from "../../assets/icons/skill-level.png";
+import Clock from "../../public/assets/icons/Clock.svg";
+import Level from "../../public/assets/icons/skill-level.png";
 
 const HackathonDetails = () => {
   const navigateTo = useNavigate();

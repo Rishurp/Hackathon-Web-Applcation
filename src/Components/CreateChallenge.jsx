@@ -1,6 +1,6 @@
 import Navbar from "./Navbar";
 import { useRef, useState } from "react";
-import Upload from "../../assets/icons/upload.svg";
+import Upload from "../../public/assets/icons/upload.svg";
 import { useDispatch } from "react-redux";
 import { challengeReducer } from "../slices/ChallengesSlice";
 

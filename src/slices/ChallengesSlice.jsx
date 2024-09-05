@@ -12,7 +12,7 @@ export const ChallengeSlice = createSlice({
         startDate: "17th June'25 09:00 PM",
         endDate: "21st June'25 11:00 PM",
         level: "Hard",
-        img: "../../assets/cardimage/Group 1000002771.png",
+        img: "../../public/assets/cardimage/Group 1000002771.png",
       },
       {
         id: 2,
@@ -22,7 +22,7 @@ export const ChallengeSlice = createSlice({
         startDate: "03rd September'24 09:00 AM",
         endDate: "4th September'24 11:00 PM",
         level: "Medium",
-        img: "../../assets/cardimage/Group 1000002766.png",
+        img: "../../public/assets/cardimage/Group 1000002766.png",
       },
       {
         id: 3,
@@ -32,7 +32,7 @@ export const ChallengeSlice = createSlice({
         startDate: "17th June'22 09:00 PM",
         endDate: "21st June'22 11:00 PM",
         level: "Easy",
-        img: "../../assets/cardimage/Group 1000002767.png",
+        img: "../../public/assets/cardimage/Group 1000002767.png",
       },
       {
         id: 4,
@@ -42,7 +42,7 @@ export const ChallengeSlice = createSlice({
         startDate: "17th June'22 09:00 PM",
         endDate: "21st June'22 11:00 PM",
         level: "Easy",
-        img: "../../assets/cardimage/Group 1000002772.png",
+        img: "../../public/assets/cardimage/Group 1000002772.png",
       },
       {
         id: 5,
@@ -52,7 +52,7 @@ export const ChallengeSlice = createSlice({
         startDate: "17th June'22 09:00 PM",
         endDate: "21st June'22 11:00 PM",
         level: "Easy",
-        img: "../../assets/cardimage/Group 1000002773.png",
+        img: "../../public/assets/cardimage/Group 1000002773.png",
       },
       {
         id: 6,
@@ -62,7 +62,7 @@ export const ChallengeSlice = createSlice({
         startDate: "17th June'22 09:00 PM",
         endDate: "21st June'22 11:00 PM",
         level: "Easy",
-        img: "../../assets/cardimage/Group 1000002466.png",
+        img: "../../public/assets/cardimage/Group 1000002466.png",
       },
     ],
   },

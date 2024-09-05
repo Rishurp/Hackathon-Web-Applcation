@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import Rocket from "../../assets/icons/PicsArt_04-14-04.42 1.svg";
+import Rocket from "../../public/assets/icons/PicsArt_04-14-04.42 1.svg";
 
 const Hero = () => {
   const navigateTo = useNavigate();

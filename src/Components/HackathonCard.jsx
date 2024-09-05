@@ -1,7 +1,9 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import React from "react";
-import check from "../../assets/icons/charm_circle-tick.png";
+import check from "<div styleName={} />
+<div styleName={} />
+<public />assets/icons/charm_circle-tick.png";
 import { useNavigate } from "react-router-dom";
 
 const parseDateString = (dateString) => {

@@ -1,7 +1,7 @@
-import Skills from "../../assets/icons/carbon_notebook-reference.svg";
-import Robot from "../../assets/icons/Robot.svg";
-import Community from "../../assets/icons/Vector.svg";
-import ICard from "../../assets/icons/IdentificationCard.svg";
+import Skills from "../../public/assets/icons/carbon_notebook-reference.svg";
+import Robot from "../../public/assets/icons/Robot.svg";
+import Community from "../../public/assets/icons/Vector.svg";
+import ICard from "../../public/assets/icons/IdentificationCard.svg";
 
 const Participate = () => {
   return (

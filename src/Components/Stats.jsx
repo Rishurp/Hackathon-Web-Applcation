@@ -1,4 +1,4 @@
-import Book from "../../assets/icons/Group 1000002515.svg";
+import Book from "../../public/assets/icons/Group 1000002515.svg";
 
 const Stats = () => {
   return (
