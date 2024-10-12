@@ -64,6 +64,7 @@ This project is a simple hackathon management dashboard for organizers. The web 
 - `build`: Builds the application for production.
 - `lint`: Lints the code using ESLint.
 - `preview`: Previews the production build locally.
+  
 
 ## Dependencies
 
